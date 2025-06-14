@@ -5,8 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Create Collab</title>
   <link rel="stylesheet" href="create-collab.css" />
+  <link rel="stylesheet" href="../css/components/navbar.css" />
+   <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
+  <div id="navbar"></div>
+
   <div class="event-form-container">
     <h2>Create New Collab</h2>
     <form id="eventForm" enctype="multipart/form-data">
@@ -37,6 +41,18 @@
     <p id="msg"></p>
   </div>
 
+  <div id="footer"></div>
+  <script>
+    // Load navbar and footer
+    
+
+    fetch('../components/footer.html')
+      .then(response => response.text())
+      .then(data => document.getElementById('footer').innerHTML = data);
+      </script>
+  <script src="../js/components/navbar.js"></script>
+
   <script src="create-collab.js"></script>
+  <script src="../js/script.js"></script>
 </body>
 </html>

@@ -15,9 +15,9 @@ document.getElementById("eventForm").addEventListener("submit", async function (
       const data = await res.json();
   
       if (res.ok) {
-        alert( "Event created successfully!");
-        form.reset();
-
+        // alert( "Event created successfully!");
+        // form.reset();
+        window.location.href = "event_faculty.html"; // Redirect to events page
       } else {
         alert("Failed to create event.");
     
