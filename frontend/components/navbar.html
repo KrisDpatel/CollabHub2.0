@@ -1,0 +1,39 @@
+<nav class="navbar">
+    <div class="container">
+        <div class="logo">
+            <a href="../pages/home.html">
+                <h2>CollabHub</h2>
+            </a>
+        </div>
+        
+        <button class="menu-toggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <ul class="nav-links">
+            <li><a href="../pages/home.html">Home</a></li>
+            <li><a href="#" onclick="handleNavigation('events')">Events</a></li>
+            <li><a href="#" onclick="handleNavigation('qna')">Q&A</a></li>
+            <li id="profile-link" style="display: none;"><a href="../pages/profile.html">Profile</a></li>
+        </ul>
+
+        <div class="auth-buttons">
+            <a href="../pages/login.html" id="login-button" class="btn btn-secondary">Login</a>
+            <a href="../pages/register.html" id="register-button" class="btn btn-primary">Register</a>
+        </div>
+
+        <!-- User profile info will be displayed here when logged in -->
+        <div id="user-profile" class="user-profile" style="display: none;">
+            <img id="profile-pic" src="" alt="Profile" class="profile-pic">
+            <span id="user-name"></span>
+
+            <div id="user-dropdown" class="user-dropdown" style="display: none;">
+                <ul id="user-options-list"></ul>
+            </div>
+            
+            <a href="#" id="logout-button" class="btn btn-secondary">Logout</a>
+        </div>
+    </div>
+</nav>

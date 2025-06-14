@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - CollabHub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/components/navbar.css">
+    <link rel="stylesheet" href="../css/pages/events.css">
+</head>
+<body>
+    <!-- Include Navbar -->
+    <div id="navbar"></div>
+
+    <!-- Events Section -->
+    <section class="events-section">
+        <div class="container">
+            <h1 class="section-title">Events</h1>
+            
+            <!-- Event Categories Navigation -->
+            <div >
+                <div class="event-categories-nav">
+                    <button class="category-tab active" data-category="upcoming">Upcoming Events</button>
+                    <button class="category-tab" data-category="ongoing">Ongoing Events</button>
+                    <button class="category-tab" data-category="past">Past Events</button>
+                </div>
+                <div style="display: inline; float: right; z-index: 20;transform: translateY(-88px);">
+                    <a href="createEvent.html" class="btn btn-primary" id="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        Create Event
+                    </a>
+                </div>
+            </div>
+            
+
+            <!-- Event Filters -->
+            <div class="event-filters">
+                <div class="search-box">
+                    <input type="text" placeholder="Search events...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="filter-options">
+                    <select>
+                        <option value="">All Categories</option>
+                        <option value="workshop">Workshop</option>
+                        <option value="hackathon">Hackathon</option>
+                        <option value="meetup">Meetup</option>
+                        <option value="conference">Conference</option>
+                    </select>
+                    <select>
+                        <option value="">All Locations</option>
+                        <option value="online">Online</option>
+                        <option value="in-person">In-Person</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Upcoming Events -->
+            <div class="events-category active" id="upcoming">
+                <div class="events-grid">
+                    <div class="event-card">
+                        <div class="event-image">
+                            <img src="https://via.placeholder.com/400x200" alt="Event Image">
+                            <span class="event-date">May 15, 2024</span>
+                        </div>
+                        <div class="event-content">
+                            <h3>Web Development Workshop</h3>
+                            <p>Learn modern web development techniques and best practices.</p>
+                            <div class="event-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>50 Participants</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Online</span>
+                                </div>
+                            </div>
+                            <div class="event-tags">
+                                <span class="tag">Web Development</span>
+                                <span class="tag">Workshop</span>
+                            </div>
+                        </div>
+                        <div class="event-footer">
+                            <a href="#" class="btn btn-primary">Register Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ongoing Events -->
+            <div class="events-category" id="ongoing">
+                <div class="events-grid">
+                    <div class="event-card">
+                        <div class="event-image">
+                            <img src="https://via.placeholder.com/400x200" alt="Event Image">
+                            <span class="event-date">May 10-12, 2024</span>
+                        </div>
+                        <div class="event-content">
+                            <h3>24-Hour Hackathon</h3>
+                            <p>Join our annual hackathon and build innovative solutions with fellow developers.</p>
+                            <div class="event-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>100 Participants</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Tech Hub, Silicon Valley</span>
+                                </div>
+                            </div>
+                            <div class="event-tags">
+                                <span class="tag">Hackathon</span>
+                                <span class="tag">Competition</span>
+                            </div>
+                        </div>
+                        <div class="event-footer">
+                            <a href="#" class="btn btn-primary">Join Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Past Events -->
+            <div class="events-category" id="past">
+                <div class="events-grid">
+                    <div class="event-card">
+                        <div class="event-image">
+                            <img src="https://via.placeholder.com/400x200" alt="Event Image">
+                            <span class="event-date">April 20, 2024</span>
+                        </div>
+                        <div class="event-content">
+                            <h3>AI & Machine Learning Meetup</h3>
+                            <p>Network with AI enthusiasts and learn about the latest trends in machine learning.</p>
+                            <div class="event-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>30 Participants</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>AI Research Center</span>
+                                </div>
+                            </div>
+                            <div class="event-tags">
+                                <span class="tag">AI/ML</span>
+                                <span class="tag">Meetup</span>
+                            </div>
+                        </div>
+                        <div class="event-footer">
+                            <a href="#" class="btn btn-outline">View Recap</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Include Footer -->
+    <div id="footer"></div>
+
+    <script>
+        // Load navbar and footer
+        fetch('../components/navbar.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('navbar').innerHTML = data);
+
+        fetch('../components/footer.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('footer').innerHTML = data);
+    </script>
+    <script src="../js/components/navbar.js"></script>
+    <script src="../js/events.js"></script>
+</body>
+</html> 

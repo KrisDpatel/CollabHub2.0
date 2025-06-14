@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate - CollabHub</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/pages/certificate.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<div id="certificates-container"></div>
+
+<script>
+    const student = JSON.parse(localStorage.getItem('user'));
+
+    fetch(`http://localhost:5000/api/certificates/student/${student.id}`)
+        .then(res => res.json())
+        .then(data => {
+            const container = document.getElementById('certificates-container');
+            if (data.success && data.certificates.length > 0) {
+                data.certificates.forEach(cert => {
+                    const certDiv = document.createElement('div');
+                    // certDiv.innerHTML = `
+                        // <h4>Certificate of Participation</h4>
+                        // <p>Name: ${cert.studentName}</p>
+                        // <p>Event: ${cert.eventTitle}</p>
+                        // <p>Date: ${new Date(cert.issueDate).toDateString()}</p>
+                        // <button onclick="generatePDF('${cert.studentName}', '${cert.eventTitle}', '${cert.issueDate}')">Download PDF</button>
+        certDiv.innerHTML = `
+                        <section class="certificate-section">
+            <div class="container">
+                <div class="certificate-header">
+                    <h1>Event Certificate</h1>
+                    <p>Generate and download your certificate for completing the event</p>
+                </div>
+
+
+                    <div class="certificate-preview">
+                        <div class="certificate-template">
+                            <div class="certificate-border">
+                                <div class="certificate-inner">
+                                    <div class="certificate-logo">
+                                        <img src="../assets/images/logo.png" alt="CollabHub Logo">
+                                    </div>
+                                    <div class="certificate-title">
+                                        <h2>Certificate of Completion</h2>
+                                        <p>This is to certify that</p>
+                                    </div>
+                                    <div class="certificate-name">
+                                        <h3 id="certificate-name">${cert.studentName}</h3>
+                                    </div>
+                                    <div class="certificate-details">
+                                        <p>has successfully completed</p>
+                                        <h4 id="certificate-event">${cert.eventTitle}</h4>
+                                        <p>on</p>
+                                        <p id="certificate-date">${new Date(cert.issueDate).toDateString()}</p>
+                                    </div>
+                                    <div class="certificate-signatures">
+                                        <div class="signature">
+                                            <img src="../pages/photo.png" alt="Instructor Signature">
+                                            <p>Instructor Name</p>
+                                            <p>Instructor</p>
+                                        </div>
+                                        <div class="signature">
+                                            <img src="../pages/photo.png" alt="Organizer Signature">
+                                            <p>Organizer Name</p>
+                                            <p>Event Organizer</p>
+                                        </div>
+                                    </div>
+                                    <div class="certificate-id">
+                                        <p>Certificate ID: <span id="certificate-id">CH2024-001</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <button onclick="generatePDF('${cert.studentName}', '${cert.eventTitle}', '${new Date(cert.issueDate).toDateString()}')">Download PDF</button>
+                    </div>
+
+            </div>
+        </section>
+                    `;
+                    container.appendChild(certDiv);
+                });
+            } else {
+                container.innerHTML = "<p>No certificates found.</p>";
+            }
+        });
+
+        async function generatePDF(name, eventTitle, issueDate) {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        doc.setFontSize(20);
+        doc.text("Certificate of Participation", 60, 40);
+
+        doc.setFontSize(14);
+        doc.text(`This is to certify that`, 20, 60);
+        doc.text(`${name}`, 20, 70);
+        doc.text(`has successfully participated in the event`, 20, 80);
+        doc.text(`${eventTitle}`, 20, 90);
+        doc.text(`on ${issueDate}`, 20, 100);
+
+        doc.text("Congratulations!", 20, 120);
+
+        doc.save(`${name}_${eventTitle}_certificate.pdf`);
+    }
+</script>

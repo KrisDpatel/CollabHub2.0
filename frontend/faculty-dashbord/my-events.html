@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Faculty Dashboard - Event Registrations</title>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <h1>Your Events and Registered Students</h1>
+  <div class="event-list" id="event-list"></div>
+
+  <script>
+    const faculty = JSON.parse(localStorage.getItem('user'));
+    const facultyId = faculty.id;
+
+    fetch(`http://localhost:5000/api/faculty/faculty-events/${facultyId}`)
+      .then(res => res.json())
+      .then(async data => {
+        if (!data.success) return alert("Failed to fetch events");
+
+        const eventsContainer = document.getElementById('event-list');
+        for (const event of data.events) {
+          const eventDiv = document.createElement('div');
+          eventDiv.className = 'event-card';
+           eventDiv.innerHTML = `<div class="event-inner-vertical">
+          <img class="event-photo" src="http://localhost:5000/uploads/${event.photo}" alt="Event Image" />
+          <div class="event-content">
+            <h3 class="event-title">${event.title}</h3>
+            <p class="event-desc">${event.description}</p>
+          </div>`
+          //  `<h3>${event.title}</h3><p>${event.description}</p><strong>Registrations:</strong>`;
+
+          const res = await fetch(`http://localhost:5000/api/faculty/event-registrations/${event._id}`);
+          const regData = await res.json();
+
+          const studentList = document.createElement('ul');
+          studentList.className = 'students';
+
+          if (regData.success && regData.registrations.length > 0) {
+            for (const reg of regData.registrations) {
+              const li = document.createElement('li');
+              li.textContent = `(${reg.studentId.name}) (${reg.studentId.email})`;
+
+              const btn = document.createElement('button');
+                btn.textContent = "Mark as Complete";
+                btn.style.marginLeft = "10px";
+                btn.onclick = () => {
+                        fetch('http://localhost:5000/api/certificates/generate', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                studentId: reg.studentId._id,
+                                eventId: event._id
+                            })
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert("Marked as complete & certificate generated!");
+                            } else {
+                                alert("Failed to generate certificate");
+                            }
+                        })
+                        .catch(err => {
+                            console.error('Error:', err);
+                            alert("Server error while generating certificate");
+                        });
+                    };
+
+
+                li.appendChild(btn);
+                studentList.appendChild(li);
+              studentList.appendChild(li);
+            }
+          } else {
+            studentList.innerHTML = '<li>No students registered yet.</li>';
+          }
+
+          eventDiv.appendChild(studentList);
+          eventsContainer.appendChild(eventDiv);
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        alert("Error loading events");
+      });
+  </script>
+</body>
+</html>

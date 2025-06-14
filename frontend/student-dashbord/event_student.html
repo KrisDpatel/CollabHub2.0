@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Events | Collab Hub</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/components/navbar.css">
+    <link rel="stylesheet" href="../css/pages/events.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <!-- <header>
+    <div class="logo">
+      <h1>Collab Hub</h1>
+    </div>
+    <nav class="profile-nav">
+      <ul>
+        <li class="user-info" id="userInfo">
+          <img src="" alt="Profile" id="profile-pic" class="profile-pic-student">
+          <div class="user-dropdown">
+          <span id="username-display">Username</span>
+          <button id="logoutBtn">Logout</button>
+        </div>
+          <ul class="dropdown-menu" id="dropdownMenu" style="display: none;">
+            <li><a href="profile-settings.html">Profile Settings</a></li>
+            <li><a href="create-collab.html">Create Collab</a></li>
+            <li><a href="">My Events</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav> -->
+     <!-- Include Navbar -->
+     <div id="navbar"></div>
+  <!-- </header> -->
+
+  <!-- Main Section -->
+  <main class="event-container">
+    student
+    <!-- Tabs -->
+    <div class="event-categories-nav">
+      <button class="category-tab active" onclick="showTab('eventSection')">Events</button>
+      <button class="category-tab" onclick="showTab('collabSection')">Collabs</button>
+      <!-- <button class="category-tab" onclick="showTab('issuesSection')">Issues</button> -->
+    </div>
+
+    <!-- Content Sections -->
+    <div id="eventSection" class="tab-content events-grid">
+      <h2 style="text-align: center; margin-top: 30px;">Upcoming Events</h2>
+      <div id="upcomingEvents" class="events-grid"></div>
+
+      <h2 style="text-align: center; margin-top: 50px;">Past Events</h2>
+      <div id="pastEvents" class="events-grid"></div>
+    </div>
+
+    <div id="collabSection" class="tab-content events-grid" style="display:none;">
+      <h2 style="text-align: center; margin-top: 30px;">Upcoming Collabs</h2>
+      <div id="upcomingCollabs" class="events-grid"></div>
+
+      <h2 style="text-align: center; margin-top: 50px;">Past Collabs</h2>
+      <div id="pastCollabs" class="events-grid"></div>
+    </div>
+      
+
+    <div id="issuesSection" class="tab-content events-grid" style="display: none;">
+      <h2>Q&A- Issues</h2>
+      <button id="postQuestionBtn">Ask Doubt ✎</button>
+
+    
+    <!-- POST QUESTION FORM (initially hidden) -->
+    <div id="questionFormContainer" class="question-form-container">
+      <form id="questionForm">
+        <h2>Post Your Question</h2>
+        <textarea id="questionText" placeholder="Type your question..." required></textarea>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+  <!-- List of Questions -->
+  <div id="questionsList">
+
+    <div class="event-card">
+      <h3>How to prepare for hackathons?</h3>
+      <p>Posted by: Riya123<br><em>Answers: Practice DSA, build small projects, read about design thinking...</em></p>
+    </div>
+  </div>
+  </div>
+      
+  </main>
+
+  <!-- Footer -->
+  <!-- <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 Collab Hub. All Rights Reserved.</p>
+      <ul>
+        <li><a href="#">Terms and Conditions</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+  </footer> -->
+
+  <div id="footer"></div>
+
+  <script>
+    // Load navbar and footer
+    fetch('../components/navbar.html')
+        .then(response => response.text())
+        .then(data => document.getElementById('navbar').innerHTML = data);
+
+    fetch('../components/footer.html')
+        .then(response => response.text())
+        .then(data => document.getElementById('footer').innerHTML = data);
+</script>
+  <script src="../js/components/navbar.js"></script>
+  <script src="../js/components/event.js"></script>
+  <script src="../js/script.js"></script>
+
+
+</body>
+</html>

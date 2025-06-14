@@ -1,0 +1,72 @@
+/* Create Event Page Styles */
+.create-event-section {
+    background-color: var(--background-color);
+    padding: var(--spacing-xl) 0;
+    box-shadow: var(--shadow-md);
+    margin-top: var(--spacing-xl);
+}
+
+.create-event-section .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
+
+.create-event-form {
+    background-color: var(--white);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.create-event-form .form-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+.create-event-form label {
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+    display: block;
+    color: var(--text-color);
+}
+
+.create-event-form .input-group {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.create-event-form .form-control {
+    width: 100%;
+    padding: var(--spacing-sm);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    font-size: 1rem;
+    color: var(--text-color);
+    transition: border-color var(--transition-fast);
+}
+
+.create-event-form .form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.create-event-form .btn {
+    width: 100%;
+    padding: var(--spacing-sm);
+    background-color: var(--primary-color);
+    color: var(--white);
+    font-weight: 600;
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.create-event-form .btn:hover {
+    background-color: var(--primary-color-dark);
+}
+
+/* Input icons */
+.create-event-form .input-group i {
+    color: var(--primary-color);
+}
