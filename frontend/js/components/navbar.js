@@ -134,7 +134,7 @@ document.addEventListener('click', (event) => {
         if (userProfile) {
             userProfile.style.display = 'flex'; // Show user profile section
             userName.textContent = `Hello, ${user.name}`; // Show the user's name
-            profilePic.src = user.profilePicUrl || '../pages/photo.png'; // Display profile picture
+            profilePic.src = `http://localhost:5000/uploads/${user.profilePic}` || '../pages/photo.png'; // Display profile picture
         }
 
         // Logout functionality

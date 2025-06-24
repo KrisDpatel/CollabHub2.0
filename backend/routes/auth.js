@@ -2,12 +2,28 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const router = express.Router();
+const path = require('path');
 const multer = require("multer");
-
+const fs = require('fs');
 
 
 // Set up multer for file handling (storing image in memory as Buffer)
-const storage = multer.memoryStorage();
+const eventUploadDir = path.join(__dirname, '../uploads/user');
+if (!fs.existsSync(eventUploadDir)) {
+  fs.mkdirSync(eventUploadDir, { recursive: true });
+}
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, eventUploadDir);
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    const ext = path.extname(file.originalname);
+    cb(null, file.fieldname + '-' + uniqueSuffix + ext);
+  }
+});
+
 const upload = multer({ storage: storage });
 
 
@@ -18,7 +34,7 @@ const upload = multer({ storage: storage });
 // Register Route (POST request)
 router.post('/register', upload.single('profilePic'), async (req, res) => {
   const { name, email, password, role } = req.body;
-  const profilePic = req.file ? req.file.buffer : null; // Get the profile picture as a Buffer
+  const profilePic = req.file ? `user/${req.file.filename}` : null; // Get the profile picture as a Buffer
 
   // Validate form fields
   if (!name || !email || !password || !role || !profilePic) {
@@ -41,7 +57,7 @@ router.post('/register', upload.single('profilePic'), async (req, res) => {
       email,
       password: hashedPassword, // Store the hashed password
       role,
-      // profilePic,
+      profilePic,
     });
 
     // Save the user to the database
@@ -95,7 +111,8 @@ console.log("check");
               id: user._id,
               name: user.name,
               email: user.email,
-              role: user.role
+              role: user.role,
+              profilePic: user.profilePic 
           }
       });
   } catch (error) {

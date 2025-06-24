@@ -291,8 +291,9 @@ window.addEventListener("click", function (e) {
 const username = user.name;
 const userRole = user.role; // 'faculty' or 'student'
 const userId = user.id;
+const profilePic = user.profilePic; // Assuming profilePic is stored in user object
 
-console.log(username,userRole,userId);
+console.log(username,userRole,userId,profilePic);
 
 document.getElementById("questionForm").addEventListener("submit", async (e) => {
   e.preventDefault();

@@ -42,7 +42,7 @@ function handleLogin(event) {
                 name: data.user.name,
                 email: data.user.email,
                 role: data.user.role,
-                profilePic: data.user.profilePic || ""  // Store profile picture URL if available
+                profilePic: data.user.profilePic // Store profile picture URL if available
             }));
             // Redirect to home page or dashboard
             // window.location.href = '../pages/home.html';
