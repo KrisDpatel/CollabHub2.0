@@ -5,6 +5,9 @@ console.log("Event ID for registration:", eventId);
 const user = JSON.parse(localStorage.getItem('user'));
 console.log("User ID:", user.id);
 
+document.getElementById('name').value = user.name;
+document.getElementById('email').value = user.email;
+
 // 🧠 Handle form submission
 document.getElementById('registration-form').addEventListener('submit', function (e) {
   e.preventDefault(); // Prevent default form submission
