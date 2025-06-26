@@ -113,7 +113,7 @@ function showTab(id) {
       if (registerButton && now < registrationCloseTime) {
         registerButton.addEventListener('click', function () {
           // const eventId = this.getAttribute('data-event-id');
-          window.location.href = `../student-dashbord/registration.html?eventId=${event._id}`;
+          window.location.href = `../student-dashbord/Eventregistration.html?eventId=${event._id}`;
         });        
       }
 
@@ -210,7 +210,7 @@ function startLiveCountdowns() {
 
       // if (registerButton2 && now < registrationCloseTime) {
         registerButton2.addEventListener('click', function () {
-           window.location.href = `../student-dashbord/registration.html?eventId=${collab._id}`;
+           window.location.href = `../student-dashbord/collabregistration.html?collabId=${collab._id}`;
         });
       // }
   
