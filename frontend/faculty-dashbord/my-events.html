@@ -3,13 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <title>Faculty Dashboard - Event Registrations</title>
-  <link rel="stylesheet" href="../css/styles.css">
-   <link rel="stylesheet" href="../css/pages/events.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/components/navbar.css">
+    <link rel="stylesheet" href="../css/pages/events.css">
 </head>
 <body>
-  <h1>Your Events and Registered Students</h1>
-  <div class="event-list" id="event-list"></div>
+  <div id="navbar"></div>
+  <h1 style="text-align: center;">Your Events and Registered Students</h1>
+  <div class="events-grid" id="event-list"></div>
 
+  <div id="footer"></div> 
+
+  <script src="../js/script.js"></script>
+  <script src="../js/components/navbar.js"></script>  
+  <script>
+    // Load navbar and footer
+    fetch('../components/navbar.html')
+        .then(response => response.text())
+        .then(data => document.getElementById('navbar').innerHTML = data);
+
+    fetch('../components/footer.html')
+        .then(response => response.text())
+        .then(data => document.getElementById('footer').innerHTML = data);
+</script>
   <script>
     const faculty = JSON.parse(localStorage.getItem('user'));
     const facultyId = faculty.id;
@@ -39,37 +56,80 @@
 
           if (regData.success && regData.registrations.length > 0) {
             for (const reg of regData.registrations) {
+              // const li = document.createElement('li');
+              // li.textContent = `(${reg.studentId.name}) (${reg.studentId.email})`;
+
+              // const btn = document.createElement('button');
+              //   btn.textContent = "Mark as Complete";
+              //   btn.style.marginLeft = "10px";
+              //   btn.onclick = () => {
+              //           fetch('http://localhost:5000/api/certificates/generate', {
+              //               method: 'POST',
+              //               headers: { 'Content-Type': 'application/json' },
+              //               body: JSON.stringify({
+              //                   studentId: reg.studentId._id,
+              //                   eventId: event._id
+              //               })
+              //           })
+              //           .then(res => res.json())
+              //           .then(data => {
+              //               if (data.success) {
+              //                   alert("Marked as complete & certificate generated!");
+              //               } else {
+              //                   alert("Failed to generate certificate");
+              //               }
+              //           })
+              //           .catch(err => {
+              //               console.error('Error:', err);
+              //               alert("Server error while generating certificate");
+              //           });
+              //       };
+
+
               const li = document.createElement('li');
-              li.textContent = `(${reg.studentId.name}) (${reg.studentId.email})`;
+li.className = 'student-entry';
 
-              const btn = document.createElement('button');
-                btn.textContent = "Mark as Complete";
-                btn.style.marginLeft = "10px";
-                btn.onclick = () => {
-                        fetch('http://localhost:5000/api/certificates/generate', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                studentId: reg.studentId._id,
-                                eventId: event._id
-                            })
-                        })
-                        .then(res => res.json())
-                        .then(data => {
-                            if (data.success) {
-                                alert("Marked as complete & certificate generated!");
-                            } else {
-                                alert("Failed to generate certificate");
-                            }
-                        })
-                        .catch(err => {
-                            console.error('Error:', err);
-                            alert("Server error while generating certificate");
-                        });
-                    };
+li.innerHTML = `
+  <span class="student-name">${reg.studentId.name} (${reg.studentId.email})</span>
+  <div class="mark-complete-wrapper">
+    <input type="checkbox" class="complete-checkbox" />
+    <button class="mark-complete-btn">Mark as Complete</button>
+  </div>
+`;
+
+const checkbox = li.querySelector('.complete-checkbox');
+const button = li.querySelector('.mark-complete-btn');
+
+button.onclick = () => {
+  fetch('http://localhost:5000/api/certificates/generate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      studentId: reg.studentId._id,
+      eventId: event._id
+    })
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        checkbox.checked = true; // ✅ Tick the checkbox
+        button.disabled = true;  // Optional: disable the button
+        button.textContent = "Completed";
+        alert("Marked as complete & certificate generated!");
+      } else {
+        alert("Failed to generate certificate");
+      }
+    })
+    .catch(err => {
+      console.error('Error:', err);
+      alert("Server error while generating certificate");
+    });
+};
 
 
-                li.appendChild(btn);
+
+
+                // li.appendChild(btn);
                 studentList.appendChild(li);
               studentList.appendChild(li);
             }

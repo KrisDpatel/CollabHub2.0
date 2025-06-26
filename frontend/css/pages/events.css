@@ -145,6 +145,7 @@
     overflow: hidden;
     box-shadow: var(--shadow-sm);
     transition: transform var(--transition-normal);
+    border: 3px solid var(--border-color);
 }
 
 .event-card:hover {
@@ -233,6 +234,63 @@
 .events-category:last-child .event-card:hover {
     opacity: 1;
 }
+
+/* Style each student row */
+.student-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-sm);
+  border-top: 1px solid var(--border-color);
+  background-color: #f9f9f9;
+  transition: background-color 0.3s ease;
+}
+
+.student-entry:hover {
+  background-color: #f1f1f1;
+}
+
+.student-name {
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--dark-text);
+}
+
+/* Wrapper for checkbox and button */
+.mark-complete-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Checkbox */
+.complete-checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary-color);
+  cursor: pointer;
+}
+
+/* Mark as Complete Button */
+.mark-complete-btn {
+  padding: 6px 12px;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.mark-complete-btn:hover {
+  background-color: #055a91; /* darker shade */
+}
+
+.mark-complete-btn:active {
+  transform: scale(0.97);
+}
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
