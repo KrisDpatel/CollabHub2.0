@@ -197,7 +197,7 @@ function startLiveCountdowns() {
                 ${isUpcoming2 ? '' : 'Collab Passed'}
               </p>
             </div>
-            <button class="register-btn ${!isRegistrationOpen2 ? 'disabled' : ''}" ${!isRegistrationOpen2 ? 'disabled' : ''}>
+            <button class="register-btn2 ${!isRegistrationOpen2 ? 'disabled' : ''}" ${!isRegistrationOpen2 ? 'disabled' : ''}>
               Register Now
             </button>
             
@@ -206,13 +206,12 @@ function startLiveCountdowns() {
 
         // registration
 
-      //   const registerButton = card.querySelector('.register-btn');
+        const registerButton2 = card.querySelector('.register-btn2');
 
-      // if (registerButton && now < registrationCloseTime) {
-      //   registerButton.addEventListener('click', function () {
-      //     console.log("running but improvment on path")
-      //     window.location.href = '../student-dashbord/registration.html';
-      //   });
+      // if (registerButton2 && now < registrationCloseTime) {
+        registerButton2.addEventListener('click', function () {
+           window.location.href = `../student-dashbord/registration.html?eventId=${collab._id}`;
+        });
       // }
   
         if (isUpcoming2) {

@@ -4,12 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Certificate - CollabHub</title>
-    <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/pages/certificate.css">
+    <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+     <link rel="stylesheet" href="../css/components/navbar.css">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 </head>
-<div id="certificates-container"></div>
+
+<body>
+    <div id="navbar"></div>
+
+    <main>
+        <section class="certificate-section">
+            <div class="container">
+                <div class="certificate-header">
+                    <h1>My Certificates</h1>
+                    <p>Download your certificates for completing the events</p>
+                </div>
+                <div id="certificates-container"></div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer"></div>
+
+    <script>
+        fetch('../components/navbar.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('navbar').innerHTML = data);
+
+        fetch('../components/footer.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('footer').innerHTML = data);
+    </script>
+    <!-- Include Navbar -->
+    <script src="../js/components/navbar.js"></script>
 
 <script>
     const student = JSON.parse(localStorage.getItem('user'));
@@ -30,18 +61,13 @@
         certDiv.innerHTML = `
                         <section class="certificate-section">
             <div class="container">
-                <div class="certificate-header">
-                    <h1>Event Certificate</h1>
-                    <p>Generate and download your certificate for completing the event</p>
-                </div>
-
-
+            
                     <div class="certificate-preview">
                         <div class="certificate-template">
                             <div class="certificate-border">
                                 <div class="certificate-inner">
                                     <div class="certificate-logo">
-                                        <img src="../assets/images/logo.png" alt="CollabHub Logo">
+                                        CollabHub
                                     </div>
                                     <div class="certificate-title">
                                         <h2>Certificate of Completion</h2>
@@ -107,3 +133,4 @@
         doc.save(`${name}_${eventTitle}_certificate.pdf`);
     }
 </script>
+</body>
