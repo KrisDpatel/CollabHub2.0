@@ -10,6 +10,7 @@ const registrationRoutes1 = require('./routes/Eventregistration');
 const registrationRoutes2 = require('./routes/Collabregistration');
 const facultyRoutes = require('./routes/faculty');
 const certificateRoutes = require('./routes/certificate');
+const userRoutes = require('./routes/user');
 const path = require('path');
 
 // Load environment variables
@@ -41,6 +42,7 @@ app.use('/api/Eventregister-event', registrationRoutes1);
 app.use('/api/Collabregister-event', registrationRoutes2);
 app.use('/api/faculty', facultyRoutes);
 app.use('/api/certificates', certificateRoutes);
+app.use('/api/user', userRoutes);
 
 
 // Serve static files from the "uploads" folder

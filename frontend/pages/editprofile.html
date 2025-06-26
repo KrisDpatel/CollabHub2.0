@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Profile</title>
+  <link rel="stylesheet" href="../css/pages/editprofile.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="edit-profile-card">
+    <h2>Edit Profile</h2>
+    <img src="" alt="Profile" class="profile-pic" id="preview" />
+    <form id="editProfileForm" enctype="multipart/form-data">
+      <label for="Name">Name</label>
+      <input type="text" id="name" name="name" placeholder="Username" required>
+      <label for="Name">Name</label>
+      <input type="email" id="email" name="email" placeholder="Email" required>
+      <input type="file" id="profilePic" name="profilePic" accept="image/*">
+      <button type="submit">Save Changes</button>
+    </form>
+  </div>
+
+  <script>
+    const user = JSON.parse(localStorage.getItem('user'));
+    const preview = document.getElementById('preview');
+
+    console.log(user.id);
+    
+    // Load existing user data
+          document.getElementById('name').value = user.name;
+          document.getElementById('email').value = user.email;
+          preview.src = `http://localhost:5000/uploads/${user.profilePic}`;
+      
+
+    // Image preview
+    document.getElementById('profilePic').addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        preview.src = URL.createObjectURL(file);
+      }
+    });
+
+    // Submit handler
+    document.getElementById('editProfileForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const res = await fetch(`http://localhost:5000/api/user/update/${user.id}`, {
+        method: 'PUT',
+        body: formData
+      });
+      const result = await res.json();
+      if (result.success) {
+        console.log('Profile updated successfully');
+        console.log(result.user);
+        localStorage.setItem('user', JSON.stringify({
+                id: result.user._id,
+                name: result.user.name,
+                email: result.user.email,
+                role: result.user.role,
+                profilePic: result.user.profilePic // Store profile picture URL if available
+            }));
+        // location.reload();
+        window.location.href = 'profile.html';
+      } else {
+        alert('Failed to update profile.');
+      }
+    });
+  </script>
+</body>
+</html>

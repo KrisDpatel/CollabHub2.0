@@ -15,6 +15,7 @@ document.getElementById("eventForm").addEventListener("submit", async function (
       if (res.ok) {
         alert( "Collab created successfully!");
         form.reset();
+        window.location.href = "event_faculty.html"; // Redirect to collabs page
         
       } else {
         alert("Failed to create Your Collab.");

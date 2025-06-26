@@ -44,6 +44,7 @@ function handleLogin(event) {
                 role: data.user.role,
                 profilePic: data.user.profilePic // Store profile picture URL if available
             }));
+            // localStorage.setItem('user', JSON.stringify(data.user)); // Store user data in localStorage
             // Redirect to home page or dashboard
             // window.location.href = '../pages/home.html';
             if (data.user.role === 'student') {

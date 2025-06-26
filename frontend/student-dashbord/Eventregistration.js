@@ -3,7 +3,7 @@ const eventId = urlParams.get('eventId');
 console.log("Event ID for registration:", eventId);
 
 const user = JSON.parse(localStorage.getItem('user'));
-console.log("User ID:", user.id);
+console.log("User ID:", user._id);
 
 document.getElementById('name').value = user.name;
 document.getElementById('email').value = user.email;
